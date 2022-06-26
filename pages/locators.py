@@ -3,6 +3,9 @@ from selenium.webdriver.common.by import By
 
 class MainPageLocators():
     LOGIN_LINK = "#login_link"
+    BASKET_BUTTON = '.basket-mini .btn'
+    BASKET_PAGE = '#default'
+    BASKET_MESSAGE = '#content_inner p'
 
 class LoginPageLocators():
     LINK = 'http://selenium1py.pythonanywhere.com/en-gb/accounts/login/'

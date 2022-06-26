@@ -1,5 +1,7 @@
 import time
 import pytest
+
+from pages.basket_page import BasketPage
 from pages.locators import ProductPageLocators
 from pages.login_page import LoginPage
 from pages.product_page import ProductPage
@@ -52,3 +54,12 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page.add_to_basket()
     page.solve_quiz_and_get_code()
     page.success_message_should_disappear()
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    page = ProductPage(browser, ProductPageLocators.LINK)
+    basket_page = BasketPage(browser,ProductPageLocators.LINK )
+    page.open()
+    page.click_on_basket_button()
+    basket_page.wait_for_load_basket()
+    basket_page.message_of_empty_basket_should_be_presented()
+

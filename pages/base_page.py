@@ -1,9 +1,12 @@
 import math
+
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.wait import WebDriverWait
-from .locators import BasePageLocators
+from .locators import BasePageLocators, MainPageLocators
+
 
 class BasePage():
     def __init__(self, browser, url, timeout=10):
@@ -17,6 +20,10 @@ class BasePage():
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+    def click_on_basket_button(self):
+        button = WebDriverWait(self.browser, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, MainPageLocators.BASKET_BUTTON)))
+        button.click()
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
