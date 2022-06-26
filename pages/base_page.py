@@ -1,4 +1,6 @@
 import math
+import string
+import random
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -24,6 +26,10 @@ class BasePage():
     def click_on_basket_button(self):
         button = WebDriverWait(self.browser, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, MainPageLocators.BASKET_BUTTON)))
         button.click()
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                     " probably unauthorised user"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
@@ -65,5 +71,9 @@ class BasePage():
             return False
 
         return True
+
+    @staticmethod
+    def random_char(char_num):
+        return ''.join(random.choice(string.ascii_letters) for _ in range(char_num))
 
 
